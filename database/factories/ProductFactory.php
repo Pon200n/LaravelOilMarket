@@ -17,7 +17,11 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => 'Test Product',
+            'price' => 5588,
+            'img' => "img.jpg",
+            'brand_id' => 1,
+            'category_id' => 1,
         ];
     }
 }

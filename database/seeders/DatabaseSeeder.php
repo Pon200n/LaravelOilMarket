@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use App\Models\ProductInfo;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
         // User::factory(10)->create();
 
         // User::factory()->create([
@@ -32,5 +34,6 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             ProductInfoSeeder::class,
         ]);
+        Product::factory(100)->create();
     }
 }

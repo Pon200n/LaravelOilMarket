@@ -37,10 +37,10 @@ class ProductAdminController extends Controller
             DB::insert('insert into product_char_values(char_id,value_id,product_id) values (?,?,?)', [$values[$i]['char_id'], $values[$i]['value'], $product_id]);
         }
 
-        $values = $request->input('values');
-        for ($i = 0; $i < count($values); $i++) {
-            DB::insert('insert into product_values(value_id,product_id) values (?,?)', [$values[$i]['value'], $product_id]);
-        }
+        // $values = $request->input('values');
+        // for ($i = 0; $i < count($values); $i++) {
+        //     DB::insert('insert into product_values(value_id,product_id) values (?,?)', [$values[$i]['value'], $product_id]);
+        // }
         $description = $request->input('description');
         DB::insert('insert into product_infos(product_id,description) values (?,?)', [$product_id, $description]);
 

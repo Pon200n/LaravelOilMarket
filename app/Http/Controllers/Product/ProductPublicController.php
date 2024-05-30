@@ -14,18 +14,9 @@ class ProductPublicController extends Controller
     // public function index()
     public function index(Request $request)
     {
-        // $request->query->all();
-        // $query_page = $request->get('page');
         $query_perPage = $request->get('perPage');
-        // dump($request->query->all());
-        // dump($query_page);
-        // dd($query_perPage);
-
-
-        // $products = Product::with('category')->with('brand')->with('values.characteristic')->with('info')->get();
-        // dd($page);
         $products = Product::with('category', 'brand', 'values.characteristic', 'info')->paginate($query_perPage);
-        // return new ProductCollection($products);
+        //* return new ProductCollection($products);
         return ProductResource::collection($products);
     }
 

@@ -84,9 +84,12 @@ class ProductAdminController extends Controller
     {
 
         $products = Product::with('category')->with('brand')->with('values.characteristic')->with('info')->with('image')->get();
-        $product = Product::with('category')->with('brand')->with('values.characteristic')->with('info')->with('image')->findOrFail($id);
-        $path = $product->image->path;
-        Storage::disk('public')->delete($path);
+        $product = Product::findOrFail($id);
+
+        $path = optional($product->image)->path;
+        if ($path !== null) {
+            Storage::disk('public')->delete($path);
+        }
         Product::destroy($id);
         return $products;
     }

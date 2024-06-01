@@ -16,7 +16,6 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'name' => "lux",
             'price' => 555555,
-            'img' => "someImg.jpg",
             'category_id' => 1,
             'brand_id' => 2,
 
@@ -24,7 +23,6 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'name' => "lux2",
             'price' => 555777,
-            'img' => "someImg.jpg",
             'category_id' => 2,
             'brand_id' => 2,
         ]);

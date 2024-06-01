@@ -27,7 +27,6 @@ class ProductCreateRequest extends FormRequest
             'brand_id' => ['required', "integer"],
             'category_id' => ['required', "integer"],
             // 'values' => ['nullable', 'array'],
-            'img' => ['required', "string"],
             // 'file' => ['required', "image"],
 
         ];

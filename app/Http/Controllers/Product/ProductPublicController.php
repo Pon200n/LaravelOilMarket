@@ -15,14 +15,14 @@ class ProductPublicController extends Controller
     public function index(Request $request)
     {
         $query_perPage = $request->get('perPage');
-        $products = Product::with('category', 'brand', 'values.characteristic', 'info')->paginate($query_perPage);
+        $products = Product::with('category', 'brand', 'image', 'values.characteristic', 'info')->paginate($query_perPage);
         //* return new ProductCollection($products);
         return ProductResource::collection($products);
     }
 
     public function show(string $id)
     {
-        $product = Product::with('category')->with('brand')->with('values.characteristic')->with('info')->findOrFail($id);
+        $product = Product::with('category')->with('brand')->with('values.characteristic')->with('info')->with('image')->findOrFail($id);
         return $product;
     }
 }

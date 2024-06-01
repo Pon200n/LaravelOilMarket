@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryCharValue\CategoryCharValuePublicController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryPublicController;
 use App\Http\Controllers\Product\ProductAdminController;
+use App\Http\Controllers\Product\ProductImageAdd;
 use App\Http\Controllers\Product\ProductPublicController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::apiResource('categoryCharAdmin', CategoryCharAdminController::class);
         Route::apiResource('categoryCharValueAdmin', CategoryCharValueAdminController::class);
         Route::apiResource('productAdmin', ProductAdminController::class);
+        Route::apiResource('productAdminImage', ProductImageAdd::class);
     });
 
     // });

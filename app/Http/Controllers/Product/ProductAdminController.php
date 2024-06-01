@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest\ProductCreateRequest;
+use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductAdminController extends Controller
 {
@@ -21,30 +24,39 @@ class ProductAdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // return $values[0]['char_id'];
+
     public function store(ProductCreateRequest $request)
     {
         $data = $request->validated();
         $product = Product::firstOrCreate($data);
         $product_id = $product->id;
 
-        $values = $request->input('values');
-
         // *$product = new Product();
         // *$product->Name = "12";
         // *$product->save();
 
-        for ($i = 0; $i < count($values); $i++) {
-            DB::insert('insert into product_char_values(char_id,value_id,product_id) values (?,?,?)', [$values[$i]['char_id'], $values[$i]['value'], $product_id]);
+        $values = $request->input('values');
+        if (is_array($values)) {
+            for ($i = 0; $i < count($values); $i++) {
+                DB::insert('insert into product_char_values(char_id,value_id,product_id) values (?,?,?)', [$values[$i]['char_id'], $values[$i]['value'], $product_id]);
+                // Вставка данных
+            }
         }
-
-        // $values = $request->input('values');
-        // for ($i = 0; $i < count($values); $i++) {
-        //     DB::insert('insert into product_values(value_id,product_id) values (?,?)', [$values[$i]['value'], $product_id]);
-        // }
         $description = $request->input('description');
         DB::insert('insert into product_infos(product_id,description) values (?,?)', [$product_id, $description]);
 
-        $products = Product::with('category')->with('brand')->with('values.characteristic')->with('info')->get();
+        $image = request()->file('file');
+        $description = request()->get('description');
+        $name = md5(Carbon::now() . "_" . $image->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
+        $filePath = Storage::disk('public')->putFileAs('/images', $image, $name);
+        Image::create([
+            "path" => $filePath,
+            "url" => url('/storage/' . $filePath),
+            "product_id" => $product_id,
+        ]);
+
+        $products = Product::with('category')->with('brand')->with('values.characteristic')->with('info')->with('image')->get();
 
         return $products;
     }
@@ -70,8 +82,12 @@ class ProductAdminController extends Controller
      */
     public function destroy(string $id)
     {
+
+        $products = Product::with('category')->with('brand')->with('values.characteristic')->with('info')->with('image')->get();
+        $product = Product::with('category')->with('brand')->with('values.characteristic')->with('info')->with('image')->findOrFail($id);
+        $path = $product->image->path;
+        Storage::disk('public')->delete($path);
         Product::destroy($id);
-        $products = Product::with('category')->with('brand')->with('values.characteristic')->with('info')->get();
         return $products;
     }
 }

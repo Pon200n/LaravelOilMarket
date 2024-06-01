@@ -12,9 +12,12 @@ use App\Http\Controllers\CategoryPublicController;
 use App\Http\Controllers\Product\ProductAdminController;
 use App\Http\Controllers\Product\ProductImageAdd;
 use App\Http\Controllers\Product\ProductPublicController;
+use App\Http\Controllers\Status\StatusAdminController;
+use App\Http\Controllers\Status\StatusPublicController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminPanelMiddleware;
+use App\Models\Status;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {
@@ -32,6 +35,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::apiResource('categoryCharValueAdmin', CategoryCharValueAdminController::class);
         Route::apiResource('productAdmin', ProductAdminController::class);
         Route::apiResource('productAdminImage', ProductImageAdd::class);
+        Route::apiResource('statusesAdmin', StatusAdminController::class);
     });
 
     // });
@@ -47,7 +51,7 @@ Route::apiResource('brandsPublic', BrandPublicController::class);
 Route::apiResource('categoryCharPublic', CategoryCharPublicController::class);
 Route::apiResource('categoryCharValuePublic', CategoryCharValuePublicController::class);
 Route::apiResource('productPublic', ProductPublicController::class);
-
+Route::apiResource('statusesPublic', StatusPublicController::class);
 
 Route::apiResource('p', PostController::class);
 

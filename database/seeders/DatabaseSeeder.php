@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ProductSeeder::class,
             ProductInfoSeeder::class,
+            StatusSeeder::class,
         ]);
         Product::factory(100)->create();
     }

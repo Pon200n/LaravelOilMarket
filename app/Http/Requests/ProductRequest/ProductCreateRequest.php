@@ -28,7 +28,6 @@ class ProductCreateRequest extends FormRequest
             'category_id' => ['required', "integer"],
             // 'values' => ['nullable', 'array'],
             // 'file' => ['required', "image"],
-
         ];
     }
 }

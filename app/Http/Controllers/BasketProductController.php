@@ -42,22 +42,7 @@ class BasketProductController extends Controller
         ])->findOrFail($auth_user_ID);
         return $user;
     }
-    // public function store(StoreBasketProductRequest $request)
-    // {
-    //     $data = $request->validated();
-    //     $auth_user = Auth::user();
-    //     $auth_user_ID = Auth::id();
-    //     $user = User::with([
-    //         'basket.basket_products.products.category',
-    //         'basket.basket_products.products.brand',
-    //         'basket.basket_products.products.info',
-    //         'basket.basket_products.products.image'
-    //     ])->findOrFail($auth_user_ID);
-    //     $basketID = $user->basket->id;
-    //     $data["basket_id"] = $basketID;
-    //     BasketProduct::firstOrCreate($data);
-    //     return $user;
-    // }
+
 
     public function show(BasketProduct $basketProduct)
     {

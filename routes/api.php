@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryCharValue\CategoryCharValueAdminController;
 use App\Http\Controllers\CategoryCharValue\CategoryCharValuePublicController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryPublicController;
+use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Product\ProductAdminController;
 use App\Http\Controllers\Product\ProductImageAdd;
 use App\Http\Controllers\Product\ProductPublicController;
@@ -20,12 +21,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminPanelMiddleware;
 
-
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
     Route::apiResource('basket', BasketProductController::class);
+    Route::apiResource('order', OrderController::class);
+
     // Route::patch('basket', [BasketProductController::class, 'update']); //* для теста
 
 
@@ -47,6 +49,7 @@ Route::apiResource('productPublic', ProductPublicController::class);
 Route::apiResource('statusesPublic', StatusPublicController::class);
 
 Route::apiResource('test', TestController::class); //* это можно удалять
+
 
 
 Route::get('/1', function () {

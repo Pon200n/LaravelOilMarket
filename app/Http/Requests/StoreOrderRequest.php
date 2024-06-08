@@ -22,7 +22,9 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'delivery_place' => ['required', "string"],
+
+
         ];
     }
 }

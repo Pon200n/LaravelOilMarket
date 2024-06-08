@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class OrderProduct extends Model
 {
     use HasFactory;
+    protected $table = 'order_products';
+    protected $guarded = false;
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

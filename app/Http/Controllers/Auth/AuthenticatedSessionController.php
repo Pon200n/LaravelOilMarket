@@ -41,12 +41,17 @@ class AuthenticatedSessionController extends Controller
 
         $basketProducts = $user->basket->basket_products;
 
+        $orderProducts = $user->orders->each(function ($order) {
+            $order->load('order_products.product.category', 'order_products.product.brand', 'order_products.product.image', 'order_products.product.info');
+        })->flatMap(function ($order) {
+            return $order->order_products;
+        });
+
         $categories = $basketProducts->pluck('products.category');
         $brands = $basketProducts->pluck('products.brand');
         $infos = $basketProducts->pluck('products.info');
         $images = $basketProducts->pluck('products.image');
 
-        // Собираем все в один массив
         $productsDetails = $categories->zip($brands, $infos, $images);
 
         return response()->json([
@@ -54,7 +59,7 @@ class AuthenticatedSessionController extends Controller
             'token' => $token->plainTextToken,
             'role' => $role,
             'basket' => $productsDetails,
-
+            // 'orders' => $orderProducts,
         ]);
     }
 

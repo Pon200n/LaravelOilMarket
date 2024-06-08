@@ -27,6 +27,9 @@ class UserSeeder extends Seeder
             'password' => Hash::make('25172517'),
             'remember_token' => Str::random(10),
         ]);
+        DB::table('baskets')->insert([
+            'user_id' => 1,
+        ]);
         DB::table('users')->insert([
             'name' => "Dmit",
             'second_name' => "Kutsenko",
@@ -36,6 +39,9 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('25172517'),
             'remember_token' => Str::random(10),
+        ]);
+        DB::table('baskets')->insert([
+            'user_id' => 2,
         ]);
     }
 }

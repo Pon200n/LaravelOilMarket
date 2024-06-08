@@ -23,6 +23,7 @@ class StoreBasketProductRequest extends FormRequest
     {
         return [
             'product_id' => ['required', "integer"],
+            'fixed_price' => ['required', "integer"],
 
         ];
     }

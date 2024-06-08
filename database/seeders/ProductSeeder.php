@@ -15,14 +15,14 @@ class ProductSeeder extends Seeder
     {
         DB::table('products')->insert([
             'name' => "lux",
-            'price' => 555555,
+            'price' => 5000,
             'category_id' => 1,
             'brand_id' => 2,
 
         ]);
         DB::table('products')->insert([
             'name' => "lux2",
-            'price' => 555777,
+            'price' => 3000,
             'category_id' => 2,
             'brand_id' => 2,
         ]);

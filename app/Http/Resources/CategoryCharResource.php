@@ -18,6 +18,7 @@ class CategoryCharResource extends JsonResource
             "id" => $this->id,
             "char_name" => $this->char_name,
             "category_id" => $this->category_id,
+            "values" => CategoryCharValueResource::collection($this->categoryCharValues),
         ];
     }
 }

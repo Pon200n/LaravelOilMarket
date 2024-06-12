@@ -12,7 +12,7 @@ class CategoryCharPublicController extends Controller
 {
     public function index()
     {
-        $chars = CategoryChar::all();
+        $chars = CategoryChar::with('categoryCharValues')->get();
         return CategoryCharResource::collection($chars);
     }
     public function show(CategoryChar $categoryChar, string $id)

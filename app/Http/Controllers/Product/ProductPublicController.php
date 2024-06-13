@@ -97,6 +97,7 @@ class ProductPublicController extends Controller
         $brand_id = $request->get('brand_id');
         $reqvest_values = $request->get('values');
         $values = $reqvest_values ? explode(',', $reqvest_values) : [];
+        $sortByPrice = $request->get('sortByPrice');
 
         $products = Product::with('category', 'brand', 'image', 'values.characteristic', 'info')
             ->where(function ($query) use ($values) {
@@ -112,6 +113,7 @@ class ProductPublicController extends Controller
             ->when($brand_id, function ($query) use ($brand_id) {
                 return $query->where('brand_id', $brand_id);
             })
+            ->orderBy('price',  $sortByPrice)
             ->paginate($query_perPage);
 
         return ProductResource::collection($products);

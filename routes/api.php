@@ -15,6 +15,7 @@ use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Product\ProductAdminController;
 use App\Http\Controllers\Product\ProductImageAdd;
 use App\Http\Controllers\Product\ProductPublicController;
+use App\Http\Controllers\Product\ProductUpdateController;
 use App\Http\Controllers\Status\StatusAdminController;
 use App\Http\Controllers\Status\StatusPublicController;
 use App\Http\Controllers\TestController;
@@ -41,6 +42,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::apiResource('productAdminImage', ProductImageAdd::class);
         Route::apiResource('statusesAdmin', StatusAdminController::class);
         Route::apiResource('orderAdmin', OrderAdminController::class);
+
+        Route::post('updateProduct', [ProductUpdateController::class, 'method']); //* -> в однометодный
     });
 });
 Route::apiResource('categoriesPublic', CategoryPublicController::class);
@@ -57,6 +60,7 @@ Route::apiResource('test', TestController::class); //* это можно уда�
 Route::get('/1', function () {
     return ['Laravel' => app()->version()];
 });
+
 // Route::get('/123', function () {
 //     return ['Laravel' => app()->version()];
 // })->middleware(AdminPanelMiddleware::class);

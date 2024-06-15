@@ -14,13 +14,13 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         DB::table('categories')->insert([
-            'category_name' => "Мотороное масло lara",
+            'category_name' => "Мотороное масло",
         ]);
         DB::table('categories')->insert([
-            'category_name' => "Трансмиссионное масло lara",
+            'category_name' => "Трансмиссионное масло",
         ]);
         DB::table('categories')->insert([
-            'category_name' => "Технические жидкости lara",
+            'category_name' => "Технические жидкости",
         ]);
     }
 }

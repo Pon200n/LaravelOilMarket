@@ -30,6 +30,9 @@ class UserSeeder extends Seeder
         DB::table('baskets')->insert([
             'user_id' => 1,
         ]);
+        DB::table('favorites')->insert([
+            'user_id' => 1,
+        ]);
         DB::table('users')->insert([
             'name' => "Dmit",
             'second_name' => "Kutsenko",
@@ -41,6 +44,9 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
         DB::table('baskets')->insert([
+            'user_id' => 2,
+        ]);
+        DB::table('favorites')->insert([
             'user_id' => 2,
         ]);
     }

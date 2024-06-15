@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Basket;
+use App\Models\Favorite;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -38,6 +39,9 @@ class RegisteredUserController extends Controller
         ]);
 
         Basket::create([
+            "user_id" => $user->id,
+        ]);
+        Favorite::create([
             "user_id" => $user->id,
         ]);
 

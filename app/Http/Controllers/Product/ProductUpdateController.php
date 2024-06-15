@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductCharValues;
 use App\Models\ProductInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class ProductUpdateController extends Controller
@@ -26,6 +27,8 @@ class ProductUpdateController extends Controller
         $product = Product::with('info')
             // ->with('image')
             ->find($id);
+
+        $product_id = $product->id;
 
         $product->update(
             [
@@ -48,13 +51,45 @@ class ProductUpdateController extends Controller
             ProductCharValues::insert($values);
         }
 
-        $image = $product->image->path;
-        $imagePath = $product->image->path;
-        $imageName = basename($imagePath);
-        if ($image) {
-            Storage::delete($imagePath);
-            Storage::disk('public')->putFileAs('/images', $imageFile, $imageName);
+
+        if ($imageFile) {
+            $image = optional($product)->image;
+            //* $imagePath = $product->image->path;
+            //? $image = optional($product->image)->path;
+
+            if ($image) {
+                // Изображение существует, и вы можете работать с путем к изображению
+                // return 'изображение есть';
+
+                $imagePath = $product->image->path;
+                $imageName = basename($imagePath);
+                Storage::delete($imagePath);
+                Storage::disk('public')->putFileAs('/images', $imageFile, $imageName);
+            } else {
+                // Изображения нет, и вы можете обработать этот случай соответствующим образом
+
+                // return 'изображения нет';
+                $name = md5(Carbon::now() . "_" . $imageFile->getClientOriginalName()) . '.' . $imageFile->getClientOriginalExtension();
+                $filePath = Storage::disk('public')->putFileAs('/images', $imageFile, $name);
+                Image::create([
+                    "path" => $filePath,
+                    "url" => url('/storage/' . $filePath),
+                    "product_id" => $product_id,
+                ]);
+            }
         }
-        return $imageName;
+        //     //* $imageName = basename($imagePath);
+        //     Storage::delete($imagePath);
+        //     //* Storage::disk('public')->putFileAs('/images', $imageFile, $imageName);
+        //     $image->delete();
+        //     $name = md5(Carbon::now() . "_" . $image->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
+        //     $filePath = Storage::disk('public')->putFileAs('/images', $image, $name);
+        //     Image::create([
+        //         "path" => $filePath,
+        //         "url" => url('/storage/' . $filePath),
+        //         "product_id" => $product_id,
+        //     ]);
+        // }
+        return $product;
     }
 }

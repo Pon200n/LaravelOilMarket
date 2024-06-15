@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryCharValue\CategoryCharValueAdminController;
 use App\Http\Controllers\CategoryCharValue\CategoryCharValuePublicController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryPublicController;
+use App\Http\Controllers\FavoriteProduct\FavoriteProductController;
 use App\Http\Controllers\Order\OrderAdminController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Product\ProductAdminController;
@@ -29,6 +30,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::apiResource('basket', BasketProductController::class);
     Route::apiResource('order', OrderController::class);
+    Route::apiResource('favorites', FavoriteProductController::class);
 
     // Route::patch('basket', [BasketProductController::class, 'update']); //* для теста
 

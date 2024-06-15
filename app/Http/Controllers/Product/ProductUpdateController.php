@@ -27,26 +27,26 @@ class ProductUpdateController extends Controller
             // ->with('image')
             ->find($id);
 
-        // $product->update(
-        //     [
-        //         'name' => $request->input('name'),
-        //         'category_id' => $request->input('category_id'),
-        //         'brand_id' => $request->input('brand_id'),
-        //         'price' => $request->input('price'),
-        //     ]
-        // );
-        // ProductInfo::where('product_id', $id)->update(
-        //     [
-        //         "description" => $request->input('description')
-        //     ]
-        // );
+        $product->update(
+            [
+                'name' => $request->input('name'),
+                'category_id' => $request->input('category_id'),
+                'brand_id' => $request->input('brand_id'),
+                'price' => $request->input('price'),
+            ]
+        );
+        ProductInfo::where('product_id', $id)->update(
+            [
+                "description" => $request->input('description')
+            ]
+        );
 
-        // $values = json_decode($request->input('values'), true);
+        $values = json_decode($request->input('values'), true);
 
-        // if ($values) {
-        //     $productValues = ProductCharValues::where('product_id', $id)->delete();
-        //     ProductCharValues::insert($values);
-        // }
+        if ($values) {
+            $productValues = ProductCharValues::where('product_id', $id)->delete();
+            ProductCharValues::insert($values);
+        }
 
         $image = $product->image->path;
         $imagePath = $product->image->path;

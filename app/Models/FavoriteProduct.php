@@ -10,5 +10,8 @@ class FavoriteProduct extends Model
     use HasFactory;
     protected $guarded = false;
     // protected $table = "favorite_products";
-
+    public function products()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

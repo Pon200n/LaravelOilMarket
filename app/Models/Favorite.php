@@ -11,4 +11,8 @@ class Favorite extends Model
     protected $guarded = false;
     // protected $table = "favorites";
 
+    public function favorite_products()
+    {
+        return $this->hasMany(FavoriteProduct::class, 'favorite_id');
+    }
 }

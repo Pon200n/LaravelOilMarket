@@ -26,6 +26,8 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            // 'phone' => ['required',   'digits:11',],
+            'phone' => ['required',  'digits:11', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -59,5 +61,3 @@ class RegisteredUserController extends Controller
         ]);
     }
 }
-
-// "token": "2|PcL8KX29PwvHcolod3IJ1W9Ndu9hAd6CIYmDiuswdf27af8c"

@@ -25,7 +25,6 @@ class ProductUpdateController extends Controller
         $imageFile = request()->file('file');
 
         $product = Product::with('info')
-            // ->with('image')
             ->find($id);
 
         $product_id = $product->id;
@@ -58,17 +57,12 @@ class ProductUpdateController extends Controller
             //? $image = optional($product->image)->path;
 
             if ($image) {
-                // Изображение существует, и вы можете работать с путем к изображению
-                // return 'изображение есть';
 
                 $imagePath = $product->image->path;
                 $imageName = basename($imagePath);
                 Storage::delete($imagePath);
                 Storage::disk('public')->putFileAs('/images', $imageFile, $imageName);
             } else {
-                // Изображения нет, и вы можете обработать этот случай соответствующим образом
-
-                // return 'изображения нет';
                 $name = md5(Carbon::now() . "_" . $imageFile->getClientOriginalName()) . '.' . $imageFile->getClientOriginalExtension();
                 $filePath = Storage::disk('public')->putFileAs('/images', $imageFile, $name);
                 Image::create([
@@ -78,18 +72,7 @@ class ProductUpdateController extends Controller
                 ]);
             }
         }
-        //     //* $imageName = basename($imagePath);
-        //     Storage::delete($imagePath);
-        //     //* Storage::disk('public')->putFileAs('/images', $imageFile, $imageName);
-        //     $image->delete();
-        //     $name = md5(Carbon::now() . "_" . $image->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
-        //     $filePath = Storage::disk('public')->putFileAs('/images', $image, $name);
-        //     Image::create([
-        //         "path" => $filePath,
-        //         "url" => url('/storage/' . $filePath),
-        //         "product_id" => $product_id,
-        //     ]);
-        // }
+
         return $product;
     }
 }

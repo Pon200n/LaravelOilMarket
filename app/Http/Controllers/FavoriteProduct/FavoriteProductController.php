@@ -17,7 +17,15 @@ class FavoriteProductController extends Controller
      */
     public function index()
     {
-        return 'favorite index';
+
+        $auth_user_ID = Auth::id();
+        $user = User::with([
+            'favorite.favorite_products.products.category',
+            'favorite.favorite_products.products.brand',
+            'favorite.favorite_products.products.info',
+            'favorite.favorite_products.products.image'
+        ])->findOrFail($auth_user_ID);
+        return $user;
     }
 
     /**
@@ -30,7 +38,15 @@ class FavoriteProductController extends Controller
         $favorite_id = $user->favorite->id;
         $data["favorite_id"] = $favorite_id;
         FavoriteProduct::firstOrCreate($data);
-        return $favorite_id;
+
+        $auth_user_ID = Auth::id();
+        $user = User::with([
+            'favorite.favorite_products.products.category',
+            'favorite.favorite_products.products.brand',
+            'favorite.favorite_products.products.info',
+            'favorite.favorite_products.products.image'
+        ])->findOrFail($auth_user_ID);
+        return $user;
     }
 
     /**
@@ -52,8 +68,17 @@ class FavoriteProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FavoriteProduct $favoriteProduct)
+    public function destroy(string $id)
+    // public function destroy(FavoriteProduct $favoriteProduct)
     {
-        //
+        FavoriteProduct::destroy($id);
+        $auth_user_ID = Auth::id();
+        $user = User::with([
+            'favorite.favorite_products.products.category',
+            'favorite.favorite_products.products.brand',
+            'favorite.favorite_products.products.info',
+            'favorite.favorite_products.products.image'
+        ])->findOrFail($auth_user_ID);
+        return $user;
     }
 }
